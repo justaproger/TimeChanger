@@ -20,8 +20,8 @@ async def create_image():
     # Создаем клиент Telegram
     client = TelegramClient('my_session', api_id='1839181', api_hash='d4cd79a3fb11d5fe2d827d0b93219778')
     await client.start()
-
-    # Устанавливаем часовой пояс
+    
+# Устанавливаем часовой пояс
     tz = pytz.timezone('Asia/Tashkent')
 
     while True:
@@ -43,7 +43,7 @@ async def create_image():
         remaining_str = f'{days} {plural_form(days, ["день", "дня", "дней"])} {hours} {plural_form(hours, ["час", "часа", "часов"])} {minutes} {plural_form(minutes, ["минута", "минуты", "минут"])}'
 
         # Вычисляем размеры текста
-        text_width, text_height = d.textsize(remaining_str, font=fnt)
+        text_width, text_height = fnt.getsize(remaining_str)
 
         # Вычисляем позицию текста
         text_x = (img.width - text_width) / 2
