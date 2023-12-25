@@ -12,7 +12,7 @@ async def change_name_every_minute():
         while True:
             tashkent_tz = pytz.timezone('Asia/Tashkent')
             now = datetime.now(tashkent_tz)
-            now = datetime.now()
+            
             time_string = now.strftime("%H:%M")
             await client(functions.account.UpdateProfileRequest(last_name="Abdukarimov" + "["+time_string+"]"))
             await asyncio.sleep(60)
