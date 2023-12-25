@@ -29,8 +29,8 @@ async def create_image():
         fnt = ImageFont.truetype("font.ttf", 32, encoding='UTF-8')
 
         # Вычисляем, сколько времени осталось до Нового года
-        now = datetime.datetime.now(tz)
-        new_year = datetime.datetime(year=now.year+1, month=1, day=1, tzinfo=tz)
+        now = datetime.datetime.now()
+        new_year = datetime.datetime(year=now.year+1, month=1, day=1)
         remaining = new_year - now
         
         # Форматируем оставшееся время без секунд
