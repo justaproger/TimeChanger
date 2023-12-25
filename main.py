@@ -5,7 +5,6 @@ import datetime
 import asyncio
 from telethon.sync import TelegramClient
 from telethon.tl import functions, types
-import pytz
 
 # Функция для склонения слов
 def plural_form(n, forms):
@@ -21,8 +20,6 @@ async def create_image():
     client = TelegramClient('my_session', api_id='1839181', api_hash='d4cd79a3fb11d5fe2d827d0b93219778')
     await client.start()
     
-# Устанавливаем часовой пояс
-    tz = pytz.timezone('Asia/Tashkent')
 
     while True:
         # Создаем изображение с черным фоном
