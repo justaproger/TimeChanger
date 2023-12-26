@@ -40,7 +40,7 @@ async def create_image():
         remaining_str = f'{days} {plural_form(days, ["день", "дня", "дней"])} {hours} {plural_form(hours, ["час", "часа", "часов"])} {minutes} {plural_form(minutes, ["минута", "минуты", "минут"])}'
 
         # Вычисляем размеры текста
-        text_width, text_height = fnt.getsize(remaining_str)
+        text_width, text_height = fnt.getbbox(remaining_str)[2:4]
 
         # Вычисляем позицию текста
         text_x = (img.width - text_width) / 2
