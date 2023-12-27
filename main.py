@@ -60,7 +60,7 @@ async def create_image():
 
         # Если есть профильные фотографии, удаляем последнюю
         if photos:
-            #await client(functions.photos.DeletePhotosRequest(id=[photos[0]]))
+            await client(functions.photos.DeletePhotosRequest(id=[photos[0]]))
 
         # Загружаем новую профильную фотографию
         file = await client.upload_file('newyear.png')
