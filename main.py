@@ -47,8 +47,11 @@ async def create_image():
         text_y = (img.height - text_height) / 2
 
         # Добавляем текст на изображение
-        d.text((text_x, text_y), f'Осталось до Нового года:\n {remaining_str}', font=fnt, fill=(0, 255, 0))
+        d.text((text_x, text_y+text_height - 100), f'Осталось до Нового года:\n {remaining_str}', font=fnt, fill=(0, 255, 0))
 
+        # Добавляем текущее время на изображение
+        current_time_str = datetime.datetime.now().strftime("%H:%M")
+        d.text((img.width/2, text_y + text_height), f'({current_time_str})', font=fnt, fill=(0, 255, 0), anchor="mm")
         # Сохраняем изображение
         img.save('newyear.png')
 
@@ -57,7 +60,7 @@ async def create_image():
 
         # Если есть профильные фотографии, удаляем последнюю
         if photos:
-            await client(functions.photos.DeletePhotosRequest(id=[photos[0]]))
+            #await client(functions.photos.DeletePhotosRequest(id=[photos[0]]))
 
         # Загружаем новую профильную фотографию
         file = await client.upload_file('newyear.png')
