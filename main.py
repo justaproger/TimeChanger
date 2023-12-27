@@ -64,7 +64,7 @@ async def create_image():
 
         # Загружаем новую профильную фотографию
         file = await client.upload_file('newyear.png')
-            await client(functions.photos.UploadProfilePhotoRequest(file=file))
+        await client(functions.photos.UploadProfilePhotoRequest(file=file))
 
         # Ждем одну минуту
         await asyncio.sleep(60)
