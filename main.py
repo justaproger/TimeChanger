@@ -5,6 +5,9 @@ import datetime
 import asyncio
 from telethon.sync import TelegramClient
 from telethon.tl import functions, types
+from telethon.tl.functions.photos import DeletePhotosRequest
+from telethon.tl.types import InputPhoto
+
 
 # Функция для склонения слов
 def plural_form(n, forms):
@@ -47,21 +50,21 @@ async def create_image():
         text_y = (img.height - text_height) / 2
 
         # Добавляем текст на изображение
-        d.text((text_x, text_y+text_height - 100), f'Осталось до Нового года:\n {remaining_str}', font=fnt, fill=(0, 255, 0))
+        d.text((text_x, text_y-30), f'Осталось до Нового года:\n {remaining_str}', font=fnt, fill=(0, 255, 0))
 
         # Добавляем текущее время на изображение
         current_time_str = datetime.datetime.now().strftime("%H:%M")
-        d.text((img.width/2, text_y + text_height), f'({current_time_str})', font=fnt, fill=(0, 255, 0), anchor="mm")
+        d.text((img.width/2, text_y+70 ), f'({current_time_str})', font=fnt, fill=(0, 255, 0), anchor="mm")
         # Сохраняем изображение
         img.save('newyear.png')
-
+        
         # Получаем текущие профильные фотографии
-        photos = await client.get_profile_photos('me')
-
-        # Если есть профильные фотографии, удаляем последнюю
-        if photos:
-            await client(functions.photos.DeletePhotosRequest(id=[photos[0]]))
-
+        async def delete_photo():
+            photos = await client.get_profile_photos('me')
+            if photos:
+                await client(DeletePhotosRequest(id=[InputPhoto(id=photos[0].id, access_hash=photos[0].access_hash, file_reference=photos[0].file_reference)]))
+        
+        await delete_photo()
         # Загружаем новую профильную фотографию
         file = await client.upload_file('newyear.png')
         await client(functions.photos.UploadProfilePhotoRequest(file=file))
